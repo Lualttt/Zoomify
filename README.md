@@ -1,5 +1,8 @@
-change this line in `crabgame_mod_template.csproj` to your bepinex directory path
+# Zoomify
 
-```xml
-<BepInExDirectory>C:\Program Files\Steam\steamapps\common\Crab Game\BepInEx</BepInExDirectory>
-```
+simple crab game zoom mod, requires [qol-core](https://github.com/LualtOfficial/qol-core)
+
+also has scroll wheel support
+
+`/zoom (amount) (duration) (key)`
+`/zoom 25 0.3 c`

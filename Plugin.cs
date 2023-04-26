@@ -19,6 +19,7 @@ namespace zoomify
         ConfigEntry<float> zoomDuration;
 
         public static Camera camera;
+        public static float scrollZoom;
 
         public override void Load()
         {
@@ -63,9 +64,11 @@ namespace zoomify
         {
             if (Input.GetKey(instance.zoomKey.Value))
             {
-                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, instance.zoomAmount.Value, instance.zoomDuration.Value);
+                scrollZoom -= Input.GetAxisRaw("Mouse ScrollWheel") * 20;
+                camera.fieldOfView = Mathf.Clamp(Mathf.Lerp(camera.fieldOfView, instance.zoomAmount.Value + scrollZoom, instance.zoomDuration.Value), 1, 120);
             } else
             {
+                scrollZoom = 0f;
                 camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, CurrentSettings.Instance.fov, instance.zoomDuration.Value);
             }
         }
