@@ -1,17 +1,104 @@
+using System;
 using BepInEx;
 using BepInEx.IL2CPP;
+using BepInEx.Configuration;
 using HarmonyLib;
+using qol_core;
+using UnityEngine;
+using System.Collections.Generic;
 
-namespace crabgame_mod_template
+namespace zoomify
 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class Plugin : BasePlugin
     {
+        static Plugin instance;
+
+        ConfigEntry<string> zoomKey;
+        ConfigEntry<int> zoomAmount;
+        ConfigEntry<float> zoomDuration;
+
+        public static Camera camera;
+
         public override void Load()
         {
             Harmony.CreateAndPatchAll(typeof(Plugin));
 
+            instance = this;
+            zoomKey = Config.Bind<string>(
+                "Zoom",
+                "zoomKey",
+                "c",
+                "The key that is pressed when you want to zoom in."
+                );
+            zoomAmount = Config.Bind<int>(
+                "Zoom",
+                "zoomAmount",
+                25,
+                "How much you zoom in, lower is more zoom."
+                );
+            zoomDuration = Config.Bind<float>(
+                "Zoom",
+                "zoomDuration",
+                0.3f,
+                "How long it takes to zoom in (0 = never, 1 = instantly)"
+                );
+
+            Mods.RegisterMod(PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION, "simple zoom mod");
+            Commands.RegisterCommand("zoom", "/zoom (amount) (duration) (key)", "Change the zoom settings.", ZoomCommand);
+
             Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+        }
+
+        [HarmonyPatch(typeof(PlayerMovement), nameof(PlayerMovement.Start))]
+        [HarmonyPostfix]
+        public static void Start(PlayerMovement __instance)
+        {
+            camera = GameObject.Find("Camera/Recoil/Shake/Main Camera").GetComponent<Camera>();
+        }
+
+        [HarmonyPatch(typeof(PlayerMovement), nameof(PlayerMovement.Update))]
+        [HarmonyPostfix]
+        public static void Update(PlayerMovement __instance)
+        {
+            if (Input.GetKey(instance.zoomKey.Value))
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, instance.zoomAmount.Value, instance.zoomDuration.Value);
+            } else
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, CurrentSettings.Instance.fov, instance.zoomDuration.Value);
+            }
+        }
+
+        public static bool ZoomCommand(List<string> arguments)
+        {
+            if (arguments.Count == 1)
+            {
+                qol_core.Plugin.SendMessage($"zoom: ({instance.zoomAmount.Value}, {instance.zoomDuration.Value}, {instance.zoomKey.Value})");
+            } else
+            {
+                try {
+                    if (arguments.Count >= 2)
+                    {
+                        instance.zoomAmount.Value = int.Parse(arguments[1]);
+                    }
+                    if (arguments.Count >= 3)
+                    {
+                        instance.zoomDuration.Value = float.Parse(arguments[2]);
+                    }
+                    if (arguments.Count >= 4)
+                    {
+                        instance.zoomKey.Value = arguments[3];
+                    }
+                    instance.Config.Save();
+                    qol_core.Plugin.SendMessage($"zoom: ({instance.zoomAmount.Value}, {instance.zoomDuration.Value}, {instance.zoomKey.Value})");
+                } catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

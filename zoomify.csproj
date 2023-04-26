@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>crabgame_mod_template</AssemblyName>
-    <Description>a crabgame mod template made by lualt</Description>
+    <AssemblyName>Zoomify</AssemblyName>
+    <Description>simple zoom mod for crabgame</Description>
     <Version>1.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
-    <BepInExDirectory>C:\Program Files\Steam\steamapps\common\Crab Game\BepInEx</BepInExDirectory>
+    <BepInExDirectory>/media/lualt/2TB/SteamLibrary/steamapps/common/Crab Game/BepInEx</BepInExDirectory>
   </PropertyGroup>
 
   <ItemGroup>
@@ -55,6 +55,9 @@
     </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>$(BepInExDirectory)\unhollowed\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="qol-core">
+      <HintPath>$(BepInExDirectory)\plugins\qol-core.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
