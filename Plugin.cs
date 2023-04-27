@@ -51,14 +51,14 @@ namespace zoomify
             Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
 
-        [HarmonyPatch(typeof(PlayerMovement), nameof(PlayerMovement.Start))]
+        [HarmonyPatch(typeof(MoveCamera), nameof(MoveCamera.Start))]
         [HarmonyPostfix]
-        public static void Start(PlayerMovement __instance)
+        public static void Start(MoveCamera __instance)
         {
-            camera = GameObject.Find("Camera/Recoil/Shake/Main Camera").GetComponent<Camera>();
+            camera = __instance.mainCam;
         }
 
-        [HarmonyPatch(typeof(PlayerMovement), nameof(PlayerMovement.Update))]
+        [HarmonyPatch(typeof(MoveCamera), nameof(MoveCamera.LateUpdate))]
         [HarmonyPostfix]
         public static void Update(PlayerMovement __instance)
         {
