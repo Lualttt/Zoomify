@@ -13,6 +13,7 @@ namespace zoomify
     public class Plugin : BasePlugin
     {
         static Plugin instance;
+        static Mod modInstance;
 
         ConfigEntry<string> zoomKey;
         ConfigEntry<int> zoomAmount;
@@ -45,8 +46,8 @@ namespace zoomify
                 "How long it takes to zoom in (0 = never, 1 = instantly)"
                 );
 
-            Mods.RegisterMod(PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION, "simple zoom mod");
-            Commands.RegisterCommand("zoom", "/zoom (amount) (duration) (key)", "Change the zoom settings.", ZoomCommand);
+            modInstance = Mods.RegisterMod(PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION, "simple zoom mod");
+            Commands.RegisterCommand("zoom", "/zoom (amount) (duration) (key)", "Change the zoom settings.", modInstance, ZoomCommand);
 
             Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
@@ -77,7 +78,7 @@ namespace zoomify
         {
             if (arguments.Count == 1)
             {
-                qol_core.Plugin.SendMessage($"zoom: ({instance.zoomAmount.Value}, {instance.zoomDuration.Value}, {instance.zoomKey.Value})");
+                qol_core.Plugin.SendMessage($"amount: {instance.zoomAmount.Value} duration:{instance.zoomDuration.Value} key:{instance.zoomKey.Value}", modInstance);
             } else
             {
                 try {
@@ -94,7 +95,7 @@ namespace zoomify
                         instance.zoomKey.Value = arguments[3];
                     }
                     instance.Config.Save();
-                    qol_core.Plugin.SendMessage($"zoom: ({instance.zoomAmount.Value}, {instance.zoomDuration.Value}, {instance.zoomKey.Value})");
+                    qol_core.Plugin.SendMessage($"amount: {instance.zoomAmount.Value} duration:{instance.zoomDuration.Value} key:{instance.zoomKey.Value}", modInstance);
                 } catch (Exception)
                 {
                     return false;
