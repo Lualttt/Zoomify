@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Zoomify</AssemblyName>
     <Description>simple zoom mod for crabgame</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <BepInExDirectory>/media/lualt/2TB/SteamLibrary/steamapps/common/Crab Game/BepInEx</BepInExDirectory>
