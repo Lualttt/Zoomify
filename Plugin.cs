@@ -63,7 +63,7 @@ namespace zoomify
         [HarmonyPostfix]
         public static void Update(PlayerMovement __instance)
         {
-            if (Input.GetKey(instance.zoomKey.Value))
+            if (Input.GetKey(instance.zoomKey.Value) && !ChatBox.Instance.prop_Boolean_0)
             {
                 scrollZoom -= Input.GetAxisRaw("Mouse ScrollWheel") * 20;
                 camera.fieldOfView = Mathf.Clamp(Mathf.Lerp(camera.fieldOfView, instance.zoomAmount.Value + scrollZoom, instance.zoomDuration.Value), 1, 120);
@@ -78,7 +78,7 @@ namespace zoomify
         {
             if (arguments.Count == 1)
             {
-                qol_core.Plugin.SendMessage($"amount: {instance.zoomAmount.Value} duration:{instance.zoomDuration.Value} key:{instance.zoomKey.Value}", modInstance);
+                qol_core.Plugin.SendMessage($"amount: {instance.zoomAmount.Value} duration: {instance.zoomDuration.Value} key: {instance.zoomKey.Value}", modInstance);
             } else
             {
                 try {
@@ -95,7 +95,7 @@ namespace zoomify
                         instance.zoomKey.Value = arguments[3];
                     }
                     instance.Config.Save();
-                    qol_core.Plugin.SendMessage($"amount: {instance.zoomAmount.Value} duration:{instance.zoomDuration.Value} key:{instance.zoomKey.Value}", modInstance);
+                    qol_core.Plugin.SendMessage($"amount: {instance.zoomAmount.Value} duration: {instance.zoomDuration.Value} key: {instance.zoomKey.Value}", modInstance);
                 } catch (Exception)
                 {
                     return false;
