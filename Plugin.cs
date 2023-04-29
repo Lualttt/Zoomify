@@ -47,7 +47,7 @@ namespace zoomify
                 );
 
             modInstance = Mods.RegisterMod(PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION, "simple zoom mod", "LualtOfficial/Zoomify");
-            Commands.RegisterCommand("zoom", "/zoom (amount) (duration) (key)", "Change the zoom settings.", modInstance, ZoomCommand);
+            Commands.RegisterCommand("zoom", "zoom (amount) (duration) (key)", "Change the zoom settings.", modInstance, ZoomCommand);
 
             Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
