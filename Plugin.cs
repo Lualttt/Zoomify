@@ -46,7 +46,7 @@ namespace zoomify
                 "How long it takes to zoom in (0 = never, 1 = instantly)"
                 );
 
-            modInstance = Mods.RegisterMod(PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION, "simple zoom mod");
+            modInstance = Mods.RegisterMod(PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION, "simple zoom mod", "LualtOfficial/Zoomify");
             Commands.RegisterCommand("zoom", "/zoom (amount) (duration) (key)", "Change the zoom settings.", modInstance, ZoomCommand);
 
             Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
