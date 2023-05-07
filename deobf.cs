@@ -61,3 +61,5 @@ global using PlayerStatus = MonoBehaviourPublicObcumaObInplInObUnique;
 global using PunchPlayers = MonoBehaviourPublicObsfBoLawhSiUnique;
 global using RevealPlayerNames = MonoBehaviourPublicLi1ObplLawhRaUnique;
 global using MoveCamera = MonoBehaviourPublicTrplVeofdeVevaCaRiVeUnique;
+
+global using Test = MonoBehaviour1PublicSlslTevaUnique;

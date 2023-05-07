@@ -48,6 +48,7 @@ namespace zoomify
 
             modInstance = Mods.RegisterMod(PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION, "simple zoom mod", "LualtOfficial/Zoomify");
             Commands.RegisterCommand("zoom", "zoom (amount) (duration) (key)", "Change the zoom settings.", modInstance, ZoomCommand);
+            Commands.RegisterCommand("fov", "zoom (amount)", "Change the FOV.", modInstance, FovCommand);
 
             Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
@@ -102,6 +103,24 @@ namespace zoomify
                 }
             }
 
+            return true;
+        }
+
+        public static bool FovCommand(List<string> arguments)
+        {
+            if (arguments.Count >= 2)
+            {
+                try {
+                    CurrentSettings.Instance.fov = Int32.Parse(arguments[1]);
+
+                    SaveManager.Instance.state.fov = CurrentSettings.Instance.fov;
+                    SaveManager.Instance.Save();
+                } catch (Exception)
+                {
+                    return false;
+                }
+            }
+            qol_core.Plugin.SendMessage($"FOV: {CurrentSettings.Instance.fov}", modInstance);
             return true;
         }
     }

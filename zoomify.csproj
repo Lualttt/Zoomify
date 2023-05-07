@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Zoomify</AssemblyName>
     <Description>simple zoom mod for crabgame</Description>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <BepInExDirectory>/media/lualt/2TB/SteamLibrary/steamapps/common/Crab Game/BepInEx</BepInExDirectory>
@@ -57,7 +57,7 @@
       <HintPath>$(BepInExDirectory)\unhollowed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
     <Reference Include="qol-core">
-      <HintPath>$(BepInExDirectory)\plugins\qol-core.dll</HintPath>
+      <HintPath>$(BepInExDirectory)\plugins\qol-core-1.0.4.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
